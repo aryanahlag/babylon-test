@@ -12,7 +12,7 @@ var createScene = function () {
   // <<<<<< CAMERA >>>>>>
     const camera = new BABYLON.FreeCamera(
       "camera",
-      new BABYLON.Vector3(10, 3, -15),
+      new BABYLON.Vector3(-10, 3, -15),
       scene
     );
 //   const camera = new BABYLON.ArcRotateCamera(
