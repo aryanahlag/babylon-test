@@ -1,0 +1,132 @@
+const canvas = document.getElementById("canvas");
+
+const engine = new BABYLON.Engine(canvas, true, {
+  preserveDrawingBuffer: true,
+  stencil: true,
+});
+
+var createScene = function () {
+  // <<<<<< SCENE >>>>>>
+  const scene = new BABYLON.Scene(engine);
+
+  // <<<<<< CAMERA >>>>>>
+  const camera = new BABYLON.FreeCamera(
+    "camera",
+    new BABYLON.Vector3(1, 1, -5),
+    scene
+  );
+  camera.attachControl(canvas, true);
+
+  // <<<<<< LIGHT >>>>>>
+  const light = new BABYLON.HemisphericLight(
+    "light",
+    new BABYLON.Vector3(1, 1, 0)
+  );
+
+  light.intensity = 0.7;
+
+  // <<<<<< EXAMPLE DATA JSON >>>>>>
+  var jsonData = {
+    asset: {
+      generator: "Khronos glTF Blender I/O v0.9.4",
+      version: "2.0",
+    },
+    scene: 0,
+    scenes: [
+      {
+        name: "Scene",
+        nodes: [0],
+      },
+    ],
+    nodes: [
+      {
+        mesh: 0,
+        name: "Torus",
+      },
+    ],
+    meshes: [
+      {
+        name: "Torus",
+        primitives: [
+          {
+            attributes: {
+              POSITION: 0,
+              NORMAL: 1,
+            },
+            indices: 2,
+          },
+        ],
+      },
+    ],
+    accessors: [
+      {
+        bufferView: 0,
+        componentType: 5126,
+        count: 160,
+        max: [1.25, 0.21650634706020355, 1.25],
+        min: [-1.25, -0.21650634706020355, -1.25],
+        type: "VEC3",
+      },
+      {
+        bufferView: 1,
+        componentType: 5126,
+        count: 160,
+        type: "VEC3",
+      },
+      {
+        bufferView: 2,
+        componentType: 5123,
+        count: 288,
+        type: "SCALAR",
+      },
+    ],
+    bufferViews: [
+      {
+        buffer: 0,
+        byteLength: 1920,
+        byteOffset: 0,
+      },
+      {
+        buffer: 0,
+        byteLength: 1920,
+        byteOffset: 1920,
+      },
+      {
+        buffer: 0,
+        byteLength: 576,
+        byteOffset: 3840,
+      },
+    ],
+    buffers: [
+      {
+        byteLength: 4416,
+        uri: "data:application/octet-stream;base64,kKVLP9ezXT6SpUu/AACgPwAAAAAAAACALkZiPwAAAAAxRmK/AACQP9ezXT4AAACAVGQeP9ezXT5WZB6/AACQP9ezXT4AAACAkKVLP9ezXT6SpUu/AABgP9ezXT4AAACAAABgP9ezXT4AAACAtsMHPzIxDSS3wwe/AABAPzIxDSQAAACAVGQeP9ezXT5WZB6/AABAPzIxDSQAAACAVGQeP9ezXb5WZB6/AABgP9ezXb4AAACAtsMHPzIxDSS3wwe/AACQP9ezXb4AAACAVGQeP9ezXb5WZB6/kKVLP9ezXb6SpUu/AABgP9ezXb4AAACAkKVLP9ezXb6SpUu/AACgPwAAAAAAAACAAACQP9ezXb4AAACALkZiPwAAAAAxRmK/lmW2M9ezXT4AAJC/LkZiPwAAAAAxRmK/w6nKMwAAAAAAAKC/kKVLP9ezXT6SpUu/PN2NM9ezXT4AAGC/lmW2M9ezXT4AAJC/VGQeP9ezXT5WZB6/HjJzMzIxDSQAAEC/tsMHPzIxDSS3wwe/PN2NM9ezXT4AAGC/tsMHPzIxDSS3wwe/PN2NM9ezXb4AAGC/VGQeP9ezXb5WZB6/HjJzMzIxDSQAAEC/PN2NM9ezXb4AAGC/lmW2M9ezXb4AAJC/lmW2M9ezXb4AAJC/LkZiPwAAAAAxRmK/kKVLP9ezXb6SpUu/w6nKMwAAAAAAAKC/laVLv9ezXT6OpUu/w6nKMwAAAAAAAKC/NEZivwAAAAAsRmK/lmW2M9ezXT4AAJC/laVLv9ezXT6OpUu/V2Qev9ezXT5SZB6/PN2NM9ezXT4AAGC/uMMHvzIxDSS0wwe/HjJzMzIxDSQAAEC/V2Qev9ezXT5SZB6/HjJzMzIxDSQAAEC/V2Qev9ezXb5SZB6/PN2NM9ezXb4AAGC/uMMHvzIxDSS0wwe/laVLv9ezXb6OpUu/V2Qev9ezXb5SZB6/laVLv9ezXb6OpUu/w6nKMwAAAAAAAKC/lmW2M9ezXb4AAJC/NEZivwAAAAAsRmK/AACgvwAAAAB6rOqzlaVLv9ezXT6OpUu/NEZivwAAAAAsRmK/AACQv9ezXT7UNNOzAACQv9ezXT7UNNOzAABgv9ezXT6IRaSzV2Qev9ezXT5SZB6/AABAvzIxDSTizYyzuMMHvzIxDSS0wwe/AABgv9ezXT6IRaSzuMMHvzIxDSS0wwe/AABgv9ezXb6IRaSzV2Qev9ezXb5SZB6/AABAvzIxDSTizYyzAACQv9ezXb7UNNOzAABgv9ezXb6IRaSzAACgvwAAAAB6rOqzlaVLv9ezXb6OpUu/AACQv9ezXb7UNNOzNEZivwAAAAAsRmK/laVLv9ezXT6OpUs/AACgvwAAAAB6rOqzNEZivwAAAAAsRmI/AACQv9ezXT7UNNOzlaVLv9ezXT6OpUs/V2Qev9ezXT5SZB4/AABgv9ezXT6IRaSzuMMHvzIxDSS0wwc/AABAvzIxDSTizYyzV2Qev9ezXT5SZB4/AABAvzIxDSTizYyzV2Qev9ezXb5SZB4/AABgv9ezXb6IRaSzuMMHvzIxDSS0wwc/laVLv9ezXb6OpUs/V2Qev9ezXb5SZB4/NEZivwAAAAAsRmI/AACQv9ezXb7UNNOzlaVLv9ezXb6OpUs/AACgvwAAAAB6rOqzw6nKMwAAAAAAAKA/laVLv9ezXT6OpUs/NEZivwAAAAAsRmI/lmW2M9ezXT4AAJA/PN2NM9ezXT4AAGA/lmW2M9ezXT4AAJA/V2Qev9ezXT5SZB4/HjJzMzIxDSQAAEA/uMMHvzIxDSS0wwc/PN2NM9ezXT4AAGA/uMMHvzIxDSS0wwc/PN2NM9ezXb4AAGA/V2Qev9ezXb5SZB4/HjJzMzIxDSQAAEA/PN2NM9ezXb4AAGA/lmW2M9ezXb4AAJA/w6nKMwAAAAAAAKA/laVLv9ezXb6OpUs/lmW2M9ezXb4AAJA/NEZivwAAAAAsRmI/i6VLP9ezXT6ZpUs/w6nKMwAAAAAAAKA/KEZiPwAAAAA4RmI/lmW2M9ezXT4AAJA/i6VLP9ezXT6ZpUs/T2QeP9ezXT5bZB4/PN2NM9ezXT4AAGA/ssMHPzIxDSS8wwc/HjJzMzIxDSQAAEA/T2QeP9ezXT5bZB4/HjJzMzIxDSQAAEA/T2QeP9ezXb5bZB4/PN2NM9ezXb4AAGA/ssMHPzIxDSS8wwc/i6VLP9ezXb6ZpUs/T2QeP9ezXb5bZB4/KEZiPwAAAAA4RmI/lmW2M9ezXb4AAJA/i6VLP9ezXb6ZpUs/w6nKMwAAAAAAAKA/AACQP9ezXT4AAACAKEZiPwAAAAA4RmI/AACgPwAAAAAAAACAi6VLP9ezXT6ZpUs/ssMHPzIxDSS8wwc/AABgP9ezXT4AAACAAABAPzIxDSQAAACAT2QeP9ezXT5bZB4/ssMHPzIxDSS8wwc/AABgP9ezXb4AAACAT2QeP9ezXb5bZB4/AABAPzIxDSQAAACAAACgPwAAAAAAAACAi6VLP9ezXb6ZpUs/AACQP9ezXb4AAACAKEZiPwAAAAA4RmI/oK5QPyP38D7D4Ky+oK5QPyP38D7D4Ky+oK5QPyP38D7D4Ky+oK5QPyP38D7D4Ky+AAAAgP//fz8AAAAAAAAAgP//fz8AAAAAAAAAgP//fz8AAAAAAAAAgP//fz8AAAAAn65QvyH38D7A4Kw+n65QvyH38D7A4Kw+n65QvyH38D7A4Kw+n65QvyH38D7A4Kw+n65QvyH38L7A4Kw+n65QvyH38L7A4Kw+n65QvyH38L7A4Kw+n65QvyH38L7A4Kw+AAAAgP//f78AAAAAAAAAgP//f78AAAAAAAAAgP//f78AAAAAAAAAgP//f78AAAAAoK5QPyP38L7D4Ky+oK5QPyP38L7D4Ky+oK5QPyP38L7D4Ky+oK5QPyP38L7D4Ky+wOCsPiX38D6erlC/wOCsPiX38D6erlC/wOCsPiX38D6erlC/wOCsPiX38D6erlC/AAAAgP//fz8AAAAAAAAAgP//fz8AAAAAwOCsviP38D6frlA/wOCsviP38D6frlA/wOCsviP38D6frlA/wOCsviP38D6frlA/wOCsviP38L6frlA/wOCsviP38L6frlA/wOCsviP38L6frlA/wOCsviP38L6frlA/AAAAgP//f78AAAAAAAAAgP//f78AAAAAwOCsPiX38L6erlC/wOCsPiX38L6erlC/wOCsPiX38L6erlC/wOCsPiX38L6erlC/w+CsviH38D6grlC/w+CsviH38D6grlC/w+CsviH38D6grlC/w+CsviH38D6grlC/AAAAAP//fz8AAAAAAAAAAP//fz8AAAAAxOCsPiH38D6grlA/xOCsPiH38D6grlA/xOCsPiH38D6grlA/xOCsPiH38D6grlA/xOCsPiH38L6grlA/xOCsPiH38L6grlA/xOCsPiH38L6grlA/xOCsPiH38L6grlA/AAAAAP//f78AAAAAAAAAAP//f78AAAAAw+CsviH38L6grlC/w+CsviH38L6grlC/w+CsviH38L6grlC/w+CsviH38L6grlC/n65QvyT38D694Ky+n65QvyT38D694Ky+n65QvyT38D694Ky+n65QvyT38D694Ky+AAAAAP//fz8AAAAAAAAAAP//fz8AAAAAoK5QPyT38D7A4Kw+oK5QPyT38D7A4Kw+oK5QPyT38D7A4Kw+oK5QPyT38D7A4Kw+oK5QPyT38L7A4Kw+oK5QPyT38L7A4Kw+oK5QPyT38L7A4Kw+oK5QPyT38L7A4Kw+AAAAAP//f78AAAAAAAAAAP//f78AAAAAn65QvyT38L694Ky+n65QvyT38L694Ky+n65QvyT38L694Ky+n65QvyT38L694Ky+oK5QvyP38D674Kw+oK5QvyP38D674Kw+oK5QvyP38D674Kw+oK5QvyP38D674Kw+AAAAAP//fz8AAACAAAAAAP//fz8AAACAoK5QPyP38D694Ky+oK5QPyP38D694Ky+oK5QPyP38D694Ky+oK5QPyP38D694Ky+oK5QPyP38L694Ky+oK5QPyP38L694Ky+oK5QPyP38L694Ky+oK5QPyP38L694Ky+AAAAAP//f78AAACAAAAAAP//f78AAACAoK5QvyP38L674Kw+oK5QvyP38L674Kw+oK5QvyP38L674Kw+oK5QvyP38L674Kw+w+CsviH38D6grlA/w+CsviH38D6grlA/w+CsviH38D6grlA/w+CsviH38D6grlA/AAAAAP//fz8AAACAAAAAAP//fz8AAACAxOCsPiH38D6grlC/xOCsPiH38D6grlC/xOCsPiH38D6grlC/xOCsPiH38D6grlC/xOCsPiH38L6grlC/xOCsPiH38L6grlC/xOCsPiH38L6grlC/xOCsPiH38L6grlC/AAAAAP//f78AAACAAAAAAP//f78AAACAw+CsviH38L6grlA/w+CsviH38L6grlA/w+CsviH38L6grlA/w+CsviH38L6grlA/ueCsPiX38D6hrlA/ueCsPiX38D6hrlA/ueCsPiX38D6hrlA/ueCsPiX38D6hrlA/AAAAgP//fz8AAACAAAAAgP//fz8AAACAuOCsviT38D6irlC/uOCsviT38D6irlC/uOCsviT38D6irlC/uOCsviT38D6irlC/uOCsviT38L6irlC/uOCsviT38L6irlC/uOCsviT38L6irlC/uOCsviT38L6irlC/AAAAgP//f78AAACAAAAAgP//f78AAACAueCsPiX38L6hrlA/ueCsPiX38L6hrlA/ueCsPiX38L6hrlA/ueCsPiX38L6hrlA/n65QPx/38D7I4Kw+n65QPx/38D7I4Kw+n65QPx/38D7I4Kw+n65QPx/38D7I4Kw+oK5QvyD38D7I4Ky+oK5QvyD38D7I4Ky+oK5QvyD38D7I4Ky+oK5QvyD38D7I4Ky+oK5QvyD38L7I4Ky+oK5QvyD38L7I4Ky+oK5QvyD38L7I4Ky+oK5QvyD38L7I4Ky+n65QPx/38L7I4Kw+n65QPx/38L7I4Kw+n65QPx/38L7I4Kw+n65QPx/38L7I4Kw+AAABAAIAAAADAAEABAAFAAYABwAFAAQACAAJAAoACAALAAkADAANAA4ADAAPAA0AEAARABIAEAATABEAFAAVABYAFwAVABQAGAAZABoAGAAbABkAHAAGAB0ABAAGABwAHgAfACAAHgAhAB8AIgAjACQAIgAlACMAEgAmACcAEgARACYAKAApACoAKwApACgALAAtAC4ALAAvAC0AMAAcAB0AMAAxABwAMgAzADQAMgA1ADMANgA3ADgANgA5ADcAJgA6ACcAOwA6ACYAPAA9AD4APwA9ADwAQABBAEIAQwBBAEAARAAxADAARABFADEARgBHAEgARgBJAEcASgBLAEwASgBNAEsAOwBOADoATwBOADsAUABRAFIAUABTAFEAVABVAFYAVABXAFUAWABFAEQAWABZAEUAWgBbAFwAWgBdAFsAXgBfAGAAXgBhAF8ATwBiAE4AYwBiAE8AZABlAGYAZABnAGUAaABpAGoAawBpAGgAWABsAFkAbQBsAFgAbgBvAHAAbgBxAG8AcgBzAHQAcgB1AHMAdgBiAGMAdgB3AGIAeAB5AHoAeAB7AHkAfAB9AH4AfAB/AH0AbACAAIEAbABtAIAAggCDAIQAggCFAIMAhgCHAIgAhgCJAIcAigB2AIsAdwB2AIoAjACNAI4AjACPAI0AkACRAJIAkACTAJEAgQAFAAcAgQCAAAUAlACVAJYAlwCVAJQAmACZAJoAmACbAJkAigATABAAigCLABMAnACdAJ4AnACfAJ0A",
+      },
+    ],
+  };
+
+  // <<<<<< CHANGE JSON TO BLOB DATA, THEN BECOMES URL >>>>>>
+  var json = JSON.stringify(jsonData);
+  var blob = new Blob([json]);
+  var url = URL.createObjectURL(blob);
+
+  // <<<<<< SHAPE OR OBJECT >>>>>>
+  BABYLON.SceneLoader.Append(url, "", scene, function(scene) {
+    scene.createDefaultCameraOrLight(true, true, true),
+    scene.createDefaultEnvironment();
+}, null, null, ".gltf");
+
+  return scene;
+};
+
+var scene = createScene();
+// run the render loop
+engine.runRenderLoop(function () {
+  scene.render();
+});
+// the canvas resize event handler
+window.addEventListener("resize", function () {
+  engine.resize();
+});
+
+console.log("start");
